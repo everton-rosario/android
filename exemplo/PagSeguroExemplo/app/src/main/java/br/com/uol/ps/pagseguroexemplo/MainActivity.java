@@ -64,11 +64,15 @@ public class MainActivity extends ActionBarActivity {
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PagSeguro.pay(new PagSeguroRequest().withAmount(new BigDecimal(1.00))
-                                    .withVendorEmail("suporte@lojamodelo.com.br")
+                    PagSeguro.pay(new PagSeguroRequest()
+                                    .withNewItem("Item Description", 1.0, new BigDecimal(1.00))
+                                    .withVendorEmail("weber.astorino@gmail.com")
                                     .withBuyerEmail("comprador@mail.com.br")
                                     .withBuyerCellphoneNumber("5511992190364")
-                                    .withReferenceCode("123"),
+                                    .withReferenceCode("123")
+                                    .withEnvironment(PagSeguro.Environment.PRODUCTION)
+                                    //.withAuthorization("marcioshimokawa@gmail.com", "11418E11533541CBAE07FA6C8F5714E1"),
+                                    .withAuthorization("weber.astorino@gmail.com", "490F6FC24C0B4AE3B5A363717B34BA39"),
                             getActivity(),
                             R.id.container,
                             new PagSeguro.PagSeguroListener() {
