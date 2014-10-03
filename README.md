@@ -33,7 +33,7 @@ Baixe o [último JAR][1] ou obtenha via Maven:
 <dependency>
     <groupId>br.com.uol.ps</groupId>
     <artifactId>library</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
 </dependency>
 ```
 
@@ -53,7 +53,7 @@ repositories {
 
 dependencies {
     ...
-    compile 'br.com.uol.ps:library:0.1'
+    compile 'br.com.uol.ps:library:0.2'
     compile 'com.google.code.gson:gson:+'
     ...
 }
@@ -74,13 +74,15 @@ Adicionar no Android-Manifest.xml
 
 Chamada de pagamento a ser adicionada:
 ```java
-  PagSeguro.pay(new PagSeguroRequest().withAmount(BigDecimal(1.00))
-                                      .withVendorEmail("suporte@lojamodelo.com.br")
-                                      .withBuyerEmail("comprador@mail.com.br")
-                                      .withBuyerCellphoneNumber("5511992190364")
-                                      .withReferenceCode("123"),
+  PagSeguro.pay(new PagSeguroRequest().withNewItem("Nome do item", 1.0, new BigDecimal(1.00))   // Nome do item, quantidade do item, valor unitário do item
+                                      .withVendorEmail("suporte@lojamodelo.com.br")             // Email do vendedor, deverá ser igual ao email da autenticacao
+                                      .withBuyerEmail("comprador@mail.com.br")                  // Email do comprador caso possua
+                                      .withBuyerCellphoneNumber("5511992190364")                // Telefone do comprador
+                                      .withReferenceCode("123")                                 // Codigo que é utilizado apenas pelo vendedor, para referencia de transação
+                                      .withEnvironment(PagSeguro.Environment.PRODUCTION)        // Ambiente que será usado: PRODUCTION, FAKE ou SANDBOX
+                                      .withAuthorization("weber.astorino@gmail.com", "490F6FC24C0B4AE3B5A363717B34BA39"),
                 getActivity(),
-                R.id.container,
+                R.id.container,                                                                 // Id do fragment/view onde serão desenhadas as telas de checkout
                 new PagSeguro.PagSeguroListener() {
       @Override
       public void onSuccess(PagSeguroResponse response, Context context) {
@@ -95,7 +97,18 @@ Chamada de pagamento a ser adicionada:
 ```
 
 
+A adição da Lib e o fluxo de checkout são desenhados dinamicamente na tela do aplicativo em que esteja embarcada. Portanto é necessário enviar o ID do container que deverá ser um Fragment.
 
+Verifique o exemplo antes de alterar seu aplicativo:
+```xml
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:ignore="MergeRootFrame" />
+```
 
 Executando a Loja Modelo (Exemplo)
 ----------------------------------
@@ -114,6 +127,12 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+0.2
+ - Versão com conexão para o Backend de produção do PagSeguro
+ - Adicionados mecanismos de token para autorização da app/usuário
+ - Lib armazena estado durante a troca de contexto ou recriação da activity na troca de orientação do device
+ - Adicionado tratamento para lista de itens: .withNewItem("Nome do item", 1.0, new BigDecimal(1.00))
+
 0.1
  - Versão inicial com contratos de interface iniciais
  - Não existe conexão com o servidor do PagSeguro
