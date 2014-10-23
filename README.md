@@ -33,7 +33,7 @@ Baixe o [último JAR][1] ou obtenha via Maven:
 <dependency>
     <groupId>br.com.uol.ps</groupId>
     <artifactId>library</artifactId>
-    <version>0.2</version>
+    <version>0.3</version>
 </dependency>
 ```
 
@@ -53,7 +53,7 @@ repositories {
 
 dependencies {
     ...
-    compile 'br.com.uol.ps:library:0.2'
+    compile 'br.com.uol.ps:library:0.3'
     compile 'com.google.code.gson:gson:+'
     ...
 }
@@ -127,6 +127,9 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+0.3
+ - CVV opcional de acordo com configuração no backend do PagSeguro
+
 0.2
  - Versão com conexão para o Backend de produção do PagSeguro
  - Adicionados mecanismos de token para autorização da app/usuário
@@ -174,7 +177,7 @@ Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
 * Adicione sua feature ou correção de bug.
 * Envie um pull request no [GitHub].
 
-  [1]: https://raw.githubusercontent.com/pagseguro/android/mvn-repo/br/com/uol/ps/library/0.1/library-0.1.jar
+  [1]: https://raw.githubusercontent.com/pagseguro/android/mvn-repo/br/com/uol/ps/library/0.3/library-0.3.jar
   [Android]: http://www.android.com/
   [GSon]: https://code.google.com/p/google-gson/
   [fórum]: http://forum.pagseguro.uol.com.br/
