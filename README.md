@@ -33,7 +33,7 @@ Baixe o [último JAR][1] ou obtenha via Maven:
 <dependency>
     <groupId>br.com.uol.ps</groupId>
     <artifactId>library</artifactId>
-    <version>0.3</version>
+    <version>0.4</version>
 </dependency>
 ```
 
@@ -53,7 +53,7 @@ repositories {
 
 dependencies {
     ...
-    compile 'br.com.uol.ps:library:0.3'
+    compile 'br.com.uol.ps:library:0.4'
     compile 'com.google.code.gson:gson:+'
     ...
 }
@@ -80,7 +80,7 @@ Chamada de pagamento a ser adicionada:
                                       .withBuyerCellphoneNumber("5511992190364")                // Telefone do comprador
                                       .withReferenceCode("123")                                 // Codigo que é utilizado apenas pelo vendedor, para referencia de transação
                                       .withEnvironment(PagSeguro.Environment.PRODUCTION)        // Ambiente que será usado: PRODUCTION, FAKE ou SANDBOX
-                                      .withAuthorization("weber.astorino@gmail.com", "490F6FC24C0B4AE3B5A363717B34BA39"),
+                                      .withAuthorization("marcioshimokawa@gmail.com", "11418E11533541CBAE07FA6C8F5714E1"),
                 getActivity(),
                 R.id.container,                                                                 // Id do fragment/view onde serão desenhadas as telas de checkout
                 new PagSeguro.PagSeguroListener() {
@@ -127,6 +127,10 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+0.4
+ - Novo layout para seleção de data de expiração que utiliza o padrão Android
+ - Limpeza de código
+
 0.3
  - CVV opcional de acordo com configuração no backend do PagSeguro
 
@@ -177,7 +181,7 @@ Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
 * Adicione sua feature ou correção de bug.
 * Envie um pull request no [GitHub].
 
-  [1]: https://raw.githubusercontent.com/pagseguro/android/mvn-repo/br/com/uol/ps/library/0.3/library-0.3.jar
+  [1]: https://raw.githubusercontent.com/pagseguro/android/mvn-repo/br/com/uol/ps/library/0.4/library-0.4.jar
   [Android]: http://www.android.com/
   [GSon]: https://code.google.com/p/google-gson/
   [fórum]: http://forum.pagseguro.uol.com.br/
