@@ -76,12 +76,12 @@ Adicionar no Android-Manifest.xml
 Chamada de pagamento a ser adicionada:
 ```java
   PagSeguro.pay(new PagSeguroRequest().withNewItem("Nome do item", 1.0, new BigDecimal(1.00))   // Nome do item, quantidade do item, valor unitário do item
-                                      .withVendorEmail("suporte@lojamodelo.com.br")             // Email do vendedor, deverá ser igual ao email da autenticacao
+                                      .withVendorEmail("SEU_EMAIL@NO_PAGSEGURO.COM")             // Email do vendedor, deverá ser igual ao email da autenticacao
                                       .withBuyerEmail("comprador@mail.com.br")                  // Email do comprador caso possua
                                       .withBuyerCellphoneNumber("5511992190364")                // Telefone do comprador
                                       .withReferenceCode("123")                                 // Codigo que é utilizado apenas pelo vendedor, para referencia de transação
                                       .withEnvironment(PagSeguro.Environment.PRODUCTION)        // Ambiente que será usado: PRODUCTION, MOCK_SUCCESS ou MOCK_ERROR
-                                      .withAuthorization("marcioshimokawa@gmail.com", "11418E11533541CBAE07FA6C8F5714E1"),
+                                      .withAuthorization("SEU_EMAIL@NO_PAG_SEGURO.COM", "codigo obtido na home do pagseguro, dentro do seu ibank"),
                 getActivity(),
                 R.id.container,                                                                 // Id do fragment/view onde serão desenhadas as telas de checkout
                 new PagSeguro.PagSeguroListener() {
