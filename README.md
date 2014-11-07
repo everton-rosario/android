@@ -4,16 +4,17 @@ Biblioteca de integração PagSeguro para Android
 Descrição
 ---------
 
-Versão Beta da biblioteca para plataforma Android.
+Biblioteca do PagSeguro para utilização na plataforma Android.
 A lib facilita o processo de checkout via PagSeguro dentro da plataforma Android, garantindo um fluxo de checkout transparente para o usuário final. 
 
-OBSERVAÇÃO: Lib mock, funcionando offline ainda
+Esta LIB é um jar simples que só funciona no ambiente Android, portanto, embora seja JAR não é possivel utilizá-la em um ambiente JAVA SE ou mesmo JAVA EE.
 
-Requisitos
-----------
+Requisitos para utilizar a LIB em seu projeto Android
+-----------------------------------------------------
 
  - [Android] 2.3.+
  - [GSon]
+ - Configurar a dependência do GSON + Lib PagSeguro (via Maven, gradle ou download)
 
 
 Instalação
@@ -79,19 +80,19 @@ Chamada de pagamento a ser adicionada:
                                       .withBuyerEmail("comprador@mail.com.br")                  // Email do comprador caso possua
                                       .withBuyerCellphoneNumber("5511992190364")                // Telefone do comprador
                                       .withReferenceCode("123")                                 // Codigo que é utilizado apenas pelo vendedor, para referencia de transação
-                                      .withEnvironment(PagSeguro.Environment.PRODUCTION)        // Ambiente que será usado: PRODUCTION, FAKE ou SANDBOX
+                                      .withEnvironment(PagSeguro.Environment.PRODUCTION)        // Ambiente que será usado: PRODUCTION, MOCK_SUCCESS ou MOCK_ERROR
                                       .withAuthorization("marcioshimokawa@gmail.com", "11418E11533541CBAE07FA6C8F5714E1"),
                 getActivity(),
                 R.id.container,                                                                 // Id do fragment/view onde serão desenhadas as telas de checkout
                 new PagSeguro.PagSeguroListener() {
       @Override
       public void onSuccess(PagSeguroResponse response, Context context) {
-          Toast.makeText(context, "Lib PS retornou pagamento aprovado!", Toast.LENGTH_LONG).show();
+          Toast.makeText(context, "Lib PS retornou pagamento aprovado! Resposta: " + response, Toast.LENGTH_LONG).show();
       }
   
       @Override
       public void onFailure(PagSeguroResponse response, Context context) {
-          Toast.makeText(context, "Lib PS retornou FALHA no pagamento!", Toast.LENGTH_LONG).show();
+          Toast.makeText(context, "Lib PS retornou FALHA no pagamento! Resposta:" + response, Toast.LENGTH_LONG).show();
       }
   });
 ```
@@ -119,6 +120,27 @@ Para executar o projeto exemplo:
 - Executar o modulo "app"
 
 
+Chaveando entre os Ambientes para testes e Produção
+--------------------------------------------------
+Atualmente existem os seguintes Environments (ambientes) para execução da LIB:
+- Environment.PRODUCTION
+- Environment.MOCK_SUCCESS
+- Environment.MOCK_ERROR
+
+PRODUCTION: Ambiente que utiliza dinheiro real e cartões de créditos reais. Para efetuar um pagamento com sucesso utilize cartões reais, e contas de Vendedor que estejam devidamente aprovadas no PagSeguro
+
+MOCK_SUCCESS: Ambiente que não chega a fazer conexão com o PagSeguro, porém o fluxo acontece 100% como em produção. A resposta sempre será de uma compra aprovada, com código de transação (aaaabbbbccccddddeeeeffffgggghhhh) e como se tivesse sido utilizado um cartão visa para o pagamento.
+
+MOCK_ERROR: Da mesma forma como um pagamento utilizando o MOCK_SUCCESS, porém ao final do fluxo de pagamento a resposta final sempre será de erro no pagamento.
+
+
+Dicas e Macetes
+---------------
+Somente com este jar, sem nenhuma configuração de telas ou Lib, o fluxo de pagamento funcionará. Esta biblioteca desenha no Fragment informado via parâmetro tudo que é necessário para que o fluxo de checkout ocorra de forma menos intrusiva possível, facilitando assim a implementação.
+
+A taxa de conversão com certeza será maior para o fluxo onde o usuário do seu aplicativo tenha instalado e logado no aplicativo Carteira do PagSeguro: https://play.google.com/store/apps/details?id=br.com.uol.ps.wallet, pois o fluxo de pagamento fica em apenas 2 passos: Clicar em pagar e selecionar o cartão já previamente cadastrado no PagSeguro e PRONTO! Em futuras versões melhoraremos ainda mais este fluxo para que o pagamento de seu produto/serviço seja o mais fácil possível de o usuário pagar e assim mais conversões de venda para seu negócio.
+
+
 Dúvidas?
 ----------
 ---
@@ -127,6 +149,11 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+0.5
+ - Mascara para input do CPF e validação de CPF que não permite o uso com CPFs inválidos em qualquer Environment.
+ - Nova classe de resposta para os requests de pagamento. PagSeguroResponse. Nela estão todas as informações acerca do pagamento que pode ter sido ou não efetuado.
+ - Fluxo APP-2-APP melhorado para garantir sucesso de mais transações
+
 0.4
  - Novo layout para seleção de data de expiração que utiliza o padrão Android
  - Limpeza de código
