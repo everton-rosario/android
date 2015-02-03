@@ -34,7 +34,7 @@ Baixe o [último JAR][1] ou obtenha via Maven:
 <dependency>
     <groupId>br.com.uol.ps</groupId>
     <artifactId>library</artifactId>
-    <version>0.4</version>
+    <version>0.6</version>
 </dependency>
 ```
 
@@ -116,7 +116,7 @@ Executando a Loja Modelo (Exemplo)
 
 Para executar o projeto exemplo:
 - Fazer clone do repositorio do github
-- Importar na sua IDE (Android Studio ou Eclipse)
+- Importar na sua IDE (Android Studio (1.0.0) ou Eclipse)
 - Executar o modulo "app"
 
 
@@ -149,6 +149,11 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+0.6
+ - Versão compatível com Lollipop 5.0.1 (#21)
+ - Migrada estrutura do projeto para Android Studio 1.0.0
+ - Reconstruido componente de DatePicker para expiração para ficar compatível com Lollipop.
+
 0.5
  - Mascara para input do CPF e validação de CPF que não permite o uso com CPFs inválidos em qualquer Environment.
  - Nova classe de resposta para os requests de pagamento. PagSeguroResponse. Nela estão todas as informações acerca do pagamento que pode ter sido ou não efetuado.
